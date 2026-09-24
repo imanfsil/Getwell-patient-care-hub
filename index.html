@@ -188,6 +188,71 @@ html[data-theme="dark"] .topbar{background:rgba(21,35,45,.9);}
 @media(max-width:760px){.sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.main{margin-left:0}.mobile-menu{display:grid}.overlay.show{display:block;position:fixed;inset:0;background:rgba(23,50,74,.28);z-index:40}.topbar{padding:0 16px}.content{padding:20px 14px 32px}.page-head{flex-direction:column}.actions{width:100%}.actions button{flex:1}.category-bar{align-items:flex-start;flex-direction:column}.manage-cats{width:100%}.manage-cats button{width:100%}.grid{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.stats{width:100%}.stat{flex:1}.cardfoot{align-items:flex-start;flex-direction:column}.card-actions{width:100%}.card-actions button{flex:1}.topbar-right{display:none}}
 @media(min-width:761px) and (max-width:1050px){.grid{grid-template-columns:1fr}.content{padding-left:24px;padding-right:24px}.page-head h1{font-size:23px}}
 </style>
+
+<style id="getwell-dark-mode-final">
+/* Final theme layer: every UI surface inherits the shared theme variables. */
+html[data-theme="dark"] body{
+  background:radial-gradient(circle at 92% 0%,rgba(64,105,126,.16),transparent 30%),
+             radial-gradient(circle at 8% 18%,rgba(64,78,105,.14),transparent 24%),
+             var(--page);
+}
+html[data-theme="dark"] .sidebar{background:#111E27;border-right-color:var(--border);}
+html[data-theme="dark"] .topbar{background:rgba(21,35,45,.96);border-bottom-color:var(--border);}
+html[data-theme="dark"] .primary{background:#6EAED2;color:#10212D;}
+html[data-theme="dark"] .primary:hover{background:#7BB9D9;}
+html[data-theme="dark"] .secondary,
+html[data-theme="dark"] .manage-cats button,
+html[data-theme="dark"] .icon-button,
+html[data-theme="dark"] .theme-toggle,
+html[data-theme="dark"] .modal-close{
+  background:var(--card);color:#B9DDEF;border-color:var(--border);
+}
+html[data-theme="dark"] .secondary:hover,
+html[data-theme="dark"] .manage-cats button:hover{background:var(--surface);}
+html[data-theme="dark"] .search{
+  background:var(--card);color:var(--navy);border-color:var(--border);
+}
+html[data-theme="dark"] .search::placeholder{color:#8299A7;}
+html[data-theme="dark"] .cat{
+  border-color:var(--border);color:#C5D6DE;
+}
+html[data-theme="dark"] .cat:hover{background:#203640;}
+html[data-theme="dark"] .cat.active{
+  background:#6EAED2;color:#10212D;border-color:#6EAED2;
+}
+html[data-theme="dark"] .cat:nth-child(3n+2){background:#292941;color:#C9C5EA;border-color:#454467;}
+html[data-theme="dark"] .cat:nth-child(3n+3){background:#19372F;color:#B8DCCF;border-color:#2D5A4D;}
+html[data-theme="dark"] .cat:nth-child(4n){background:#3A2A22;color:#E4C1AE;border-color:#62483A;}
+html[data-theme="dark"] .cat.active{background:#6EAED2;color:#10212D;border-color:#6EAED2;}
+html[data-theme="dark"] .template-card,
+html[data-theme="dark"] .stat,
+html[data-theme="dark"] .card{
+  background:var(--card);border-color:var(--border);
+}
+html[data-theme="dark"] .preview{
+  background:#192B36!important;color:#DCE8EE;border-color:#304753!important;
+}
+html[data-theme="dark"] .template-card:nth-child(3n+2) .preview{background:#292941!important;border-color:#454467!important;}
+html[data-theme="dark"] .template-card:nth-child(3n) .preview{background:#19372F!important;border-color:#2D5A4D!important;}
+html[data-theme="dark"] .tag{background:#203B4A;color:#B9DDEF;border-color:#34596A;}
+html[data-theme="dark"] .template-card:nth-child(3n+2) .tag{background:#292941;color:#C9C5EA;border-color:#454467;}
+html[data-theme="dark"] .template-card:nth-child(3n) .tag{background:#19372F;color:#B8DCCF;border-color:#2D5A4D;}
+html[data-theme="dark"] .notice{background:var(--notice-bg);border-color:var(--notice-border);color:var(--notice-text);}
+html[data-theme="dark"] .modal{background:var(--card);border-color:var(--border);}
+html[data-theme="dark"] .modal-head{border-bottom-color:var(--border);}
+html[data-theme="dark"] .modal-foot{border-top-color:var(--border);}
+html[data-theme="dark"] .field input,
+html[data-theme="dark"] .field textarea,
+html[data-theme="dark"] .field select,
+html[data-theme="dark"] .move-box select{
+  background:var(--surface);color:var(--navy);border-color:var(--border);
+}
+html[data-theme="dark"] .category-row,
+html[data-theme="dark"] .move-box{background:var(--surface);border-color:var(--border);}
+html[data-theme="dark"] .danger-btn{background:#3A151A;border-color:#6B2730;color:#F5AAB2;}
+html[data-theme="dark"] .empty{background:var(--card);border-color:var(--border);color:var(--muted);}
+html[data-theme="dark"] .stat:after{opacity:.35;}
+</style>
 </head>
 <body>
 <div class="app">
@@ -278,9 +343,29 @@ function syncCategories(){
 }
 function allCategories(){return ['All',...categoriesStore];}
 function render(){syncCategories();document.getElementById('count').textContent=templates.length;document.getElementById('catCount').textContent=categoriesStore.length;if(!categoriesStore.includes(activeCat)&&activeCat!=='All') activeCat='All';renderNav();renderCats();renderGrid();}
-function renderNav(){document.getElementById('nav').innerHTML=categoriesStore.map(c=>`<button class="${activeCat===c?'active':''}" onclick="setCat(${JSON.stringify(c)})"><span class="nav-icon">•</span><span>${esc(c)}</span></button>`).join('');}
-function renderCats(){document.getElementById('cats').innerHTML=allCategories().map(c=>`<button class="cat ${activeCat===c?'active':''}" onclick="setCat(${JSON.stringify(c)})">${esc(c)}</button>`).join('');}
-function setCat(c){activeCat=c;render();}
+function renderNav(){
+  document.getElementById('nav').innerHTML=categoriesStore.map(c=>`<button type="button" class="${activeCat===c?'active':''}" data-category="${esc(c)}"><span class="nav-icon">•</span><span>${esc(c)}</span></button>`).join('');
+}
+function renderCats(){
+  document.getElementById('cats').innerHTML=allCategories().map(c=>`<button type="button" class="cat ${activeCat===c?'active':''}" data-category="${esc(c)}">${esc(c)}</button>`).join('');
+}
+function setCat(c){
+  const next=String(c||'All');
+  if(next!=='All'&&!categoriesStore.includes(next)) return;
+  activeCat=next;
+  renderNav();
+  renderCats();
+  renderGrid();
+}
+function handleCategoryClick(e){
+  const button=e.target.closest('[data-category]');
+  if(!button) return;
+  e.preventDefault();
+  e.stopPropagation();
+  setCat(button.getAttribute('data-category'));
+}
+document.getElementById('nav').addEventListener('click',handleCategoryClick);
+document.getElementById('cats').addEventListener('click',handleCategoryClick);
 function filtered(){const q=document.getElementById('search').value.toLowerCase().trim();return templates.filter(t=>(activeCat==='All'||t.category===activeCat)&&(!q||(t.name+' '+t.category+' '+t.message).toLowerCase().includes(q)));}
 function renderGrid(){const list=filtered();document.getElementById('grid').innerHTML=list.length?list.map(t=>`<article class="card template-card"><span class="tag">${esc(t.category)}</span><h3>${esc(t.name)}</h3><div class="preview">${esc(t.message)}</div><div class="cardfoot"><span class="small">Permanent template</span><div class="card-actions"><button class="secondary" onclick="editTemplate(${JSON.stringify(t.id)})">Edit</button><button class="primary" onclick="copyTemplate(${JSON.stringify(t.id)})">📋 Copy</button></div></div></article>`).join(''):'<div class="empty">No templates found.</div>';}
 
@@ -326,7 +411,7 @@ document.getElementById('manageCategoriesBtn').onclick=()=>{renderCategoryManage
 document.getElementById('addCategoryBtn').onclick=()=>{createCategoryPrompt(false);renderCategoryManager();};
 function renderCategoryManager(){
   const el=document.getElementById('categoryList');
-  el.innerHTML=categoriesStore.length?categoriesStore.map(c=>{const count=templates.filter(t=>t.category===c).length;return `<div class="category-row"><div><div class="category-name">${esc(c)}</div><div class="category-meta">${count} template${count===1?'':'s'}</div></div><div class="row-actions"><button class="secondary" onclick="renameCategory(${JSON.stringify(c)})">Rename</button><button class="danger-btn" onclick="requestDeleteCategory(${JSON.stringify(c)})">Delete</button></div></div>`;}).join(''):'<div class="empty">No categories yet.</div>';
+  el.innerHTML=categoriesStore.length?categoriesStore.map(c=>{const count=templates.filter(t=>t.category===c).length;return `<div class="category-row"><div><div class="category-name">${esc(c)}</div><div class="category-meta">${count} template${count===1?'':'s'}</div></div><div class="row-actions"><button type="button" class="secondary" onclick="renameCategory(${JSON.stringify(c)})">Rename</button><button type="button" class="danger-btn" onclick="requestDeleteCategory(${JSON.stringify(c)})">Delete</button></div></div>`;}).join(''):'<div class="empty">No categories yet.</div>';
 }
 window.renameCategory=oldName=>{
   const raw=prompt('Rename category:',oldName);if(raw===null)return;const newName=String(raw).trim();
@@ -372,7 +457,16 @@ document.querySelectorAll('.modal-backdrop').forEach(m=>m.addEventListener('clic
 document.getElementById('search').oninput=renderGrid;
 document.getElementById('exportBtn').onclick=()=>{const blob=new Blob([JSON.stringify({app:'Getwell Patient Care Hub',version:1,exportedAt:new Date().toISOString(),templates,categories:categoriesStore},null,2)],{type:'application/json'});const a=document.createElement('a');const url=URL.createObjectURL(blob);a.href=url;a.download='getwell-patient-care-hub-templates.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),0);};
 
-function applyTheme(theme){const t=theme==='dark'?'dark':'light';document.documentElement.dataset.theme=t;localStorage.setItem(THEME_KEY,t);document.getElementById('themeLabel').textContent=t==='dark'?'Light Mode':'Dark Mode';document.getElementById('themeIcon').textContent=t==='dark'?'☀':'☾';}
+function applyTheme(theme){
+  const t=theme==='dark'?'dark':'light';
+  document.documentElement.dataset.theme=t;
+  localStorage.setItem(THEME_KEY,t);
+  const label=document.getElementById('themeLabel');
+  const icon=document.getElementById('themeIcon');
+  label.textContent=t==='dark'?'Dark Mode':'Light Mode';
+  icon.textContent=t==='dark'?'☾':'☀';
+  document.getElementById('themeToggle').setAttribute('aria-label',`Current theme: ${t} mode. Click to switch.`);
+}
 function initTheme(){let t=localStorage.getItem(THEME_KEY);if(t!=='dark'&&t!=='light')t='light';applyTheme(t);}
 document.getElementById('themeToggle').onclick=()=>applyTheme(document.documentElement.dataset.theme==='dark'?'light':'dark');
 const sidebar=document.getElementById('sidebar'),overlay=document.getElementById('overlay');
