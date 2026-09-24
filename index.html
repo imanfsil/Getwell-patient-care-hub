@@ -1,24 +1,163 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Getwell Reply Hub</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Getwell Patient Care Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:#f6f8fc;color:#172033}.app{display:flex;min-height:100vh}.side{width:250px;background:#fff;border-right:1px solid #e7ebf2;padding:24px 16px;position:sticky;top:0;height:100vh}.brand{font-weight:800;font-size:20px;padding:8px 12px 24px;color:#1769aa}.nav{display:grid;gap:7px}.nav button{border:0;background:transparent;text-align:left;padding:11px 12px;border-radius:10px;cursor:pointer;color:#526070}.nav button.active,.nav button:hover{background:#eaf4fb;color:#1769aa;font-weight:700}.main{flex:1;padding:28px;max-width:1250px}.top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:22px}.title h1{margin:0;font-size:28px}.title p{margin:6px 0 0;color:#6d7786}.actions{display:flex;gap:10px}.btn{border:0;border-radius:10px;padding:11px 16px;cursor:pointer;font-weight:700}.primary{background:#1769aa;color:white}.secondary{background:white;border:1px solid #dce2ea;color:#344054}.search{background:#fff;border:1px solid #dce2ea;border-radius:12px;padding:13px 15px;width:100%;font-size:15px;margin-bottom:16px}.cats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}.cat{border:1px solid #dce2ea;background:#fff;border-radius:999px;padding:8px 13px;cursor:pointer;color:#566273}.cat.active{background:#1769aa;color:#fff;border-color:#1769aa}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px}.card{background:#fff;border:1px solid #e4e9f0;border-radius:14px;padding:18px;box-shadow:0 2px 8px rgba(20,30,50,.03)}.card h3{margin:0 0 8px;font-size:17px}.tag{display:inline-block;font-size:12px;background:#eef5fa;color:#1769aa;border-radius:999px;padding:5px 8px;margin-bottom:12px}.preview{white-space:pre-wrap;background:#f8fafc;border:1px solid #edf0f4;border-radius:10px;padding:12px;font-size:13px;line-height:1.5;max-height:220px;overflow:auto}.cardfoot{display:flex;justify-content:space-between;align-items:center;margin-top:13px;gap:8px}.small{font-size:12px;color:#7a8493}.empty{text-align:center;padding:60px;color:#778}.modal{position:fixed;inset:0;background:rgba(15,23,42,.42);display:none;align-items:center;justify-content:center;padding:20px;z-index:5}.modal.show{display:flex}.box{background:#fff;border-radius:16px;max-width:720px;width:100%;padding:24px;max-height:90vh;overflow:auto}.box h2{margin-top:0}.field{margin:12px 0}.field label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}.field input,.field textarea,.field select{width:100%;padding:11px;border:1px solid #d8dee8;border-radius:9px;font:inherit}.field textarea{min-height:240px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}.danger{color:#c0392b}.notice{background:#fff8e6;border:1px solid #f2dfaa;padding:12px;border-radius:10px;color:#715a1b;margin-bottom:18px;font-size:13px}.toast{position:fixed;right:20px;bottom:20px;background:#172033;color:white;padding:12px 16px;border-radius:10px;display:none}.toast.show{display:block}.statbar{display:flex;gap:10px;margin-bottom:18px}.stat{background:white;border:1px solid #e4e9f0;padding:12px 16px;border-radius:12px}.stat b{font-size:20px;display:block}.muted{color:#667085}
-@media(max-width:800px){.side{display:none}.main{padding:18px}.row{grid-template-columns:1fr}.top{align-items:flex-start;flex-direction:column}}
-</style></head>
+:root{--navy:#08142A;--blue:#2563EB;--blue2:#1759D6;--page:#EEF5FF;--card:#FFF;--surface:#F8FBFF;--border:#D9E4F2;--border-light:#E8EEF7;--muted:#64748B;--shadow:0 8px 28px rgba(15,23,42,.06);--notice-bg:#FFF8E6;--notice-border:#F2D58A;--notice-text:#715A1B;--danger:#DC2626;--danger-bg:#FEF2F2}
+html[data-theme="dark"]{color-scheme:dark;--page:#080D19;--card:#151E30;--surface:#1B263A;--navy:#F8FAFC;--border:#334155;--border-light:#26344A;--muted:#B8C4D4;--shadow:0 10px 35px rgba(0,0,0,.20);--notice-bg:#2A2415;--notice-border:#6B5520;--notice-text:#FCD98B;--danger-bg:#3A1515}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;min-height:100%;font-family:Poppins,Arial,sans-serif;background:var(--page);color:var(--navy);font-size:11px}
+body{overflow-x:hidden}
+button,input,select,textarea{font-family:inherit}
+button{cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid #93C5FD;outline-offset:1px}
+.app{min-height:100vh}
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:225px;background:#F7FAFF;border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:50;transition:transform .2s ease}
+html[data-theme="dark"] .sidebar{background:#0D1424}
+.brand{height:82px;padding:18px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.brand-mark{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#3B82F6,#2563EB);color:#fff;display:grid;place-items:center;font-weight:700;font-size:13px;flex:0 0 auto}
+.brand-text{min-width:0}
+.brand-name{font-size:14px;font-weight:700;line-height:1.35;color:var(--navy)}
+.brand-sub{font-size:9px;color:var(--muted);margin-top:2px}
+.nav{padding:18px 12px;overflow:auto}
+.nav-label{font-size:10px;color:#94A3B8;letter-spacing:.12em;font-weight:600;margin:0 10px 9px}
+.nav button{width:100%;display:flex;gap:10px;align-items:center;padding:10px 12px;border:0;background:transparent;border-radius:10px;font-size:11px;color:#17345F;margin:3px 0;text-align:left}
+html[data-theme="dark"] .nav button{color:#CBD5E1}
+.nav button:hover{background:#EAF2FF;color:#1759D6}
+html[data-theme="dark"] .nav button:hover{background:#172642;color:#93C5FD}
+.nav button.active{background:#DDEBFF;color:#1759D6;font-weight:600}
+html[data-theme="dark"] .nav button.active{background:#15365C;color:#93C5FD}
+.nav-icon{width:18px;text-align:center;opacity:.85}
+.sidebar-bottom{margin-top:auto;padding:12px;border-top:1px solid var(--border);display:grid;gap:9px}
+.theme-toggle{height:36px;border:1px solid var(--border);border-radius:9px;background:var(--card);color:var(--navy);display:flex;align-items:center;justify-content:space-between;padding:0 11px;font-size:10px;font-weight:600}
+.theme-toggle span:last-child{font-size:14px}
+.mobile-menu{display:none}
+.overlay{display:none}
+.main{margin-left:225px;min-height:100vh}
+.topbar{height:72px;background:var(--card);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 22px 0 25px;position:sticky;top:0;z-index:15}
+.topbar-left{display:flex;align-items:center;gap:10px;min-width:0}
+.page-title{font-size:17px;font-weight:700;line-height:1.2}
+.page-subtitle{font-size:10px;color:var(--muted);margin-top:3px}
+.topbar-right{display:flex;align-items:center;gap:9px}
+.icon-button{width:36px;height:36px;border:1px solid var(--border);border-radius:9px;background:var(--card);color:var(--navy);display:grid;place-items:center}
+.content{padding:20px 26px 35px;max-width:1300px}
+.page-head{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:14px}
+.page-head h1{font-size:21px;margin:0 0 4px;line-height:1.25}
+.page-head p{font-size:11px;color:var(--muted);margin:0}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.primary,.secondary,.danger-btn{border-radius:9px;padding:9px 12px;font-size:10.5px;font-weight:600;border:1px solid transparent;white-space:nowrap}
+.primary{background:var(--blue);color:#fff}
+.primary:hover{background:#1D4ED8}
+.secondary{background:var(--card);border-color:var(--border);color:#1D4ED8}
+html[data-theme="dark"] .secondary{color:#93C5FD}
+.secondary:hover{background:var(--surface)}
+.danger-btn{background:var(--danger-bg);border-color:#FECACA;color:var(--danger)}
+.notice{background:var(--notice-bg);border:1px solid var(--notice-border);padding:10px 12px;border-radius:9px;color:var(--notice-text);margin-bottom:14px;font-size:10.5px}
+.stats{display:flex;gap:9px;margin-bottom:14px}
+.stat{min-width:105px;padding:11px 14px;border:1px solid var(--border);background:var(--card);border-radius:10px;box-shadow:var(--shadow)}
+.stat-label{font-size:9.5px;color:var(--muted)}
+.stat-value{font-size:20px;font-weight:700;margin-top:2px}
+.search{width:100%;height:38px;border:1px solid var(--border);border-radius:9px;background:var(--card);color:var(--navy);padding:0 12px;font-size:11px;outline:0;margin-bottom:10px}
+.search::placeholder{color:#94A3B8}
+.category-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+.cats{display:flex;gap:7px;flex-wrap:wrap;min-width:0}
+.cat{border:1px solid var(--border);background:var(--card);color:#355277;border-radius:999px;padding:7px 11px;cursor:pointer;font-size:10px;white-space:nowrap}
+html[data-theme="dark"] .cat{color:#CBD5E1}
+.cat:hover{background:var(--surface)}
+.cat.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.manage-cats{flex:0 0 auto}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow)}
+.template-card{padding:16px;display:flex;flex-direction:column;min-width:0}
+.tag{display:inline-flex;align-items:center;align-self:flex-start;font-size:9.5px;background:#E8F2FF;color:#1D4ED8;border:1px solid #C7DFFF;border-radius:999px;padding:4px 8px;margin-bottom:9px;font-weight:600}
+html[data-theme="dark"] .tag{background:#15365C;color:#93C5FD;border-color:#2F65A0}
+.card h3{margin:0 0 8px;font-size:13px;line-height:1.4}
+.preview{white-space:pre-wrap;background:var(--surface);border:1px solid var(--border-light);border-radius:9px;padding:11px;font-size:10.5px;line-height:1.6;max-height:198px;overflow:auto;color:var(--navy)}
+.cardfoot{display:flex;justify-content:space-between;align-items:center;margin-top:11px;gap:8px}
+.card-actions{display:flex;gap:6px}
+.small{font-size:9px;color:var(--muted)}
+.empty{grid-column:1/-1;text-align:center;padding:55px;color:var(--muted);background:var(--card);border:1px dashed var(--border);border-radius:12px}
+.modal-backdrop{position:fixed;inset:0;background:rgba(15,23,42,.48);display:none;align-items:center;justify-content:center;z-index:100;padding:18px}
+.modal-backdrop.show{display:flex}
+.modal{width:min(760px,96vw);max-height:92vh;overflow:auto;background:var(--card);border-radius:13px;box-shadow:0 30px 80px rgba(15,23,42,.20);border:1px solid var(--border)}
+.modal-head{padding:15px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:12px}
+.modal-head h2{margin:0;font-size:14px}
+.modal-head p{margin:4px 0 0;font-size:10px;color:var(--muted)}
+.modal-close{border:1px solid var(--border);background:var(--card);color:var(--navy);width:31px;height:31px;border-radius:8px;font-size:18px}
+.modal-body{padding:18px}
+.modal-foot{padding:13px 18px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px}
+.field{margin:0 0 12px}
+.field label{display:block;font-size:10px;color:var(--muted);margin-bottom:5px;font-weight:600}
+.field input,.field textarea,.field select{width:100%;border:1px solid var(--border);border-radius:8px;background:var(--card);height:36px;padding:0 9px;font-size:10.5px;outline:0;color:var(--navy)}
+.field textarea{height:230px;padding:9px;resize:vertical;line-height:1.55}
+.field-help{font-size:9px;color:var(--muted);margin-top:5px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.category-list{display:grid;gap:8px}
+.category-row{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid var(--border);background:var(--surface);border-radius:9px;padding:10px 11px}
+.category-name{font-size:10.5px;font-weight:600;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.category-meta{font-size:9px;color:var(--muted);margin-top:2px}
+.row-actions{display:flex;gap:6px;flex:0 0 auto}
+.confirm-copy{font-size:10.5px;line-height:1.6;color:var(--navy)}
+.move-box{margin-top:12px;padding:11px;background:var(--surface);border:1px solid var(--border);border-radius:9px}
+.move-box label{display:block;font-size:10px;font-weight:600;margin-bottom:5px;color:var(--muted)}
+.move-box select{width:100%;height:36px;border:1px solid var(--border);border-radius:8px;background:var(--card);color:var(--navy);padding:0 9px;font-size:10.5px}
+.toast{position:fixed;right:18px;bottom:18px;background:#08142A;color:#fff;padding:10px 13px;border-radius:9px;display:none;z-index:200;font-size:10px;box-shadow:0 10px 30px rgba(15,23,42,.18)}
+.toast.show{display:block}
+@media(max-width:900px){.sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.main{margin-left:0}.mobile-menu{display:grid}.overlay.show{display:block;position:fixed;inset:0;background:rgba(15,23,42,.35);z-index:40}.topbar{padding:0 16px}.content{padding:18px 16px 30px}}
+@media(max-width:650px){.page-head{flex-direction:column}.actions{width:100%}.actions button{flex:1}.category-bar{align-items:flex-start;flex-direction:column}.manage-cats{width:100%}.manage-cats button{width:100%}.grid{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.stats{width:100%}.stat{flex:1}.cardfoot{align-items:flex-start;flex-direction:column}.card-actions{width:100%}.card-actions button{flex:1}.topbar-right{display:none}}
+</style>
+</head>
 <body>
 <div class="app">
-<aside class="side"><div class="brand">Getwell Reply Hub</div><div class="nav" id="nav"></div></aside>
-<main class="main">
-<div class="top"><div class="title"><h1>Message Templates</h1><p>Find, personalise and copy approved replies.</p></div><div class="actions"><button class="btn secondary" id="exportBtn">Export</button><button class="btn primary" id="addBtn">+ Add Template</button></div></div>
-<div class="notice">⚠️ Use templates for responding to patient enquiries. Do not use them for unsolicited bulk messaging.</div>
-<div class="statbar"><div class="stat"><span class="muted">Templates</span><b id="count">0</b></div><div class="stat"><span class="muted">Categories</span><b id="catCount">0</b></div></div>
-<input id="search" class="search" placeholder="🔍 Search template, keyword or category..."/>
-<div class="cats" id="cats"></div><div class="grid" id="grid"></div>
-</main></div>
-<div class="modal" id="modal"><div class="box"><h2 id="modalTitle">Add Template</h2><div class="row"><div class="field"><label>Template name</label><input id="name" placeholder="e.g. Same-Day Appointment Reminder"></div><div class="field"><label>Category</label><select id="category"></select></div></div><div class="field"><label>Message</label><textarea id="message" placeholder="Write the approved message here..."></textarea><div class="small">Use placeholders like [Patient Name], [DATE], [TIME], [Doctor Name].</div></div><div class="modal-actions"><button class="btn secondary" id="cancel">Cancel</button><button class="btn primary" id="save">Save Template</button></div></div></div>
-<div class="toast" id="toast">Copied!</div>
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-mark">GW</div>
+      <div class="brand-text"><div class="brand-name">Getwell Patient Care Hub</div><div class="brand-sub">Internal patient communication</div></div>
+    </div>
+    <nav class="nav"><div class="nav-label">PATIENT CARE</div><div id="nav"></div></nav>
+    <div class="sidebar-bottom">
+      <button class="theme-toggle" id="themeToggle" type="button"><span id="themeLabel">Dark Mode</span><span id="themeIcon">☾</span></button>
+    </div>
+  </aside>
+  <div class="overlay" id="overlay"></div>
+  <main class="main">
+    <header class="topbar">
+      <div class="topbar-left"><button class="icon-button mobile-menu" id="menuBtn" type="button" aria-label="Open menu">☰</button><div><div class="page-title">Getwell Patient Care Hub</div><div class="page-subtitle">Patient communication and approved response templates</div></div></div>
+    </header>
+    <section class="content">
+      <div class="page-head"><div><h1>Message Templates</h1><p>Find, personalise and copy approved replies.</p></div><div class="actions"><button class="secondary" id="exportBtn">Export</button><button class="primary" id="addBtn">+ Add Template</button></div></div>
+      <div class="notice">⚠️ Use templates for responding to patient enquiries. Do not use them for unsolicited bulk messaging.</div>
+      <div class="stats"><div class="stat"><div class="stat-label">Templates</div><div class="stat-value" id="count">0</div></div><div class="stat"><div class="stat-label">Categories</div><div class="stat-value" id="catCount">0</div></div></div>
+      <input id="search" class="search" placeholder="🔍  Search template, keyword or category..." autocomplete="off"/>
+      <div class="category-bar"><div class="cats" id="cats"></div><div class="manage-cats"><button class="secondary" id="manageCategoriesBtn">Manage Categories</button></div></div>
+      <div class="grid" id="grid"></div>
+    </section>
+  </main>
+</div>
+
+<div class="modal-backdrop" id="templateModal"><div class="modal">
+  <div class="modal-head"><div><h2 id="modalTitle">Add Template</h2><p>Create or update an approved patient response.</p></div><button class="modal-close" data-close="templateModal" type="button">×</button></div>
+  <div class="modal-body"><div class="form-grid"><div class="field"><label for="name">Template name</label><input id="name" placeholder="e.g. Same-Day Appointment Reminder"></div><div class="field"><label for="category">Category</label><select id="category"></select></div></div><div class="field"><label for="message">Message</label><textarea id="message" placeholder="Write the approved message here..."></textarea><div class="field-help">Use placeholders like [Patient Name], [DATE], [TIME], [Doctor Name].</div></div></div>
+  <div class="modal-foot"><button class="secondary" data-close="templateModal" type="button">Cancel</button><button class="primary" id="save">Save Template</button></div>
+</div></div>
+
+<div class="modal-backdrop" id="categoryModal"><div class="modal">
+  <div class="modal-head"><div><h2>Manage Categories</h2><p>Rename, add or safely delete template categories.</p></div><button class="modal-close" data-close="categoryModal" type="button">×</button></div>
+  <div class="modal-body"><div class="actions" style="margin-bottom:12px"><button class="primary" id="addCategoryBtn">+ Add Category</button></div><div class="category-list" id="categoryList"></div></div>
+</div></div>
+
+<div class="modal-backdrop" id="confirmModal"><div class="modal">
+  <div class="modal-head"><div><h2 id="confirmTitle">Delete Category</h2><p>Review this action before continuing.</p></div><button class="modal-close" data-close="confirmModal" type="button">×</button></div>
+  <div class="modal-body"><div class="confirm-copy" id="confirmCopy"></div><div class="move-box" id="moveBox" hidden><label for="moveCategory">Move templates to</label><select id="moveCategory"></select></div></div>
+  <div class="modal-foot"><button class="secondary" data-close="confirmModal" type="button">Cancel</button><button class="danger-btn" id="confirmAction">Delete Category</button></div>
+</div></div>
+
+<div class="toast" id="toast">Saved</div>
 <script>
 const defaultTemplates=[
 {name:'Appointment Reminder — 2 Days Before',category:'Appointments',message:`Assalamualaikum / Hi / Good day, [Patient Name] 😊\n\nJust a friendly reminder of your [Treatment / Consultation] appointment with us:\n\n📅 Date: [DATE]\n⏰ Time: [TIME]\n🩺 Doctor: Dr [NAME]\n\nKindly confirm your appointment with us. If you need to reschedule, please let us know. 😊\n\n📌 Note: In case of any changes to the doctor on duty, our team will inform you accordingly.\n\nThank you! 🤍`},
@@ -32,24 +171,140 @@ const defaultTemplates=[
 {name:'Locum Reminder',category:'Locum',message:`Hi Dr 😊\n\nJust a kind reminder regarding your locum shift with us tomorrow:\n\n📅 Date: [DATE]\n⏰ Time: [TIME]\n📍 Location: [CLINIC NAME]\n\nKindly be at the clinic on time, preferably a few minutes before the scheduled shift, to allow some time for preparation before starting.\n\nWe would also appreciate it if Dr could let us know as early as possible should there be any changes to your availability or if you anticipate being late.\n\nThank you, Dr! We really appreciate your time and cooperation. 🙏🏻😊`}
 ];
 const KEY='getwell_reply_hub_v1';
-let templates=JSON.parse(localStorage.getItem(KEY)||'null')||defaultTemplates.map((x,i)=>({...x,id:Date.now()+i}));
-let activeCat='All', editingId=null;
-const categories=()=>['All',...Array.from(new Set(templates.map(t=>t.category)))];
-function saveAll(){localStorage.setItem(KEY,JSON.stringify(templates));}
-function render(){document.getElementById('count').textContent=templates.length;document.getElementById('catCount').textContent=categories().length-1;renderNav();renderCats();renderGrid();}
-function renderNav(){document.getElementById('nav').innerHTML=categories().filter(x=>x!=='All').map(c=>`<button class="${activeCat===c?'active':''}" onclick="setCat('${esc(c)}')">${esc(c)}</button>`).join('');}
-function renderCats(){document.getElementById('cats').innerHTML=categories().map(c=>`<button class="cat ${activeCat===c?'active':''}" onclick="setCat('${esc(c)}')">${esc(c)}</button>`).join('');}
+const THEME_KEY='getwell_patient_care_hub_theme_v1';
+const CATEGORY_KEY='getwell_patient_care_hub_categories_v1';
+let templates=[];
+let activeCat='All';
+let editingId=null;
+let pendingDeleteCategory=null;
+let pendingDeleteMode=null;
+let categoriesStore=[];
+
+function uid(){return 'tpl_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8);}
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+function normalizeTemplate(t,i){return {id:t.id??uid(),name:String(t.name??''),category:String(t.category??'General Enquiries'),message:String(t.message??'')};}
+function readTemplates(){
+  try{const raw=localStorage.getItem(KEY);if(raw){const parsed=JSON.parse(raw);if(Array.isArray(parsed)) return parsed.map(normalizeTemplate);}}catch(e){console.error('Template storage read failed',e);}
+  return defaultTemplates.map(normalizeTemplate);
+}
+function deriveCategories(){
+  const fromTemplates=templates.map(t=>t.category).filter(Boolean);
+  let stored=[];
+  try{const raw=localStorage.getItem(CATEGORY_KEY);if(raw){const parsed=JSON.parse(raw);if(Array.isArray(parsed)) stored=parsed.map(String).filter(Boolean);}}catch(e){console.error('Category storage read failed',e);}
+  return Array.from(new Set([...stored,...fromTemplates]));
+}
+function saveAll(){localStorage.setItem(KEY,JSON.stringify(templates));localStorage.setItem(CATEGORY_KEY,JSON.stringify(categoriesStore));}
+function syncCategories(){
+  const fromTemplates=templates.map(t=>t.category).filter(Boolean);
+  categoriesStore=Array.from(new Set([...categoriesStore,...fromTemplates]));
+  categoriesStore=categoriesStore.filter(c=>c);
+}
+function allCategories(){return ['All',...categoriesStore];}
+function render(){syncCategories();document.getElementById('count').textContent=templates.length;document.getElementById('catCount').textContent=categoriesStore.length;if(!categoriesStore.includes(activeCat)&&activeCat!=='All') activeCat='All';renderNav();renderCats();renderGrid();}
+function renderNav(){document.getElementById('nav').innerHTML=categoriesStore.map(c=>`<button class="${activeCat===c?'active':''}" onclick="setCat(${JSON.stringify(c)})"><span class="nav-icon">•</span><span>${esc(c)}</span></button>`).join('');}
+function renderCats(){document.getElementById('cats').innerHTML=allCategories().map(c=>`<button class="cat ${activeCat===c?'active':''}" onclick="setCat(${JSON.stringify(c)})">${esc(c)}</button>`).join('');}
 function setCat(c){activeCat=c;render();}
 function filtered(){const q=document.getElementById('search').value.toLowerCase().trim();return templates.filter(t=>(activeCat==='All'||t.category===activeCat)&&(!q||(t.name+' '+t.category+' '+t.message).toLowerCase().includes(q)));}
-function renderGrid(){const list=filtered();document.getElementById('grid').innerHTML=list.length?list.map(t=>`<article class="card"><span class="tag">${esc(t.category)}</span><h3>${esc(t.name)}</h3><div class="preview">${esc(t.message)}</div><div class="cardfoot"><span class="small">Permanent template</span><div><button class="btn secondary" onclick="editTemplate('${t.id}')">Edit</button> <button class="btn primary" onclick="copyTemplate('${t.id}')">📋 Copy</button></div></div></article>`).join(''):'<div class="empty">No templates found.</div>';}
-function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
-function openModal(t){editingId=t?.id||null;document.getElementById('modalTitle').textContent=editingId?'Edit Template':'Add Template';document.getElementById('name').value=t?.name||'';document.getElementById('message').value=t?.message||'';document.getElementById('category').innerHTML=categories().filter(x=>x!=='All').map(c=>`<option>${esc(c)}</option>`).join('')+`<option value="__new">+ New category</option>`;document.getElementById('category').value=t?.category||categories().filter(x=>x!=='All')[0]||'General';document.getElementById('modal').classList.add('show');}
-document.getElementById('category').addEventListener('change',e=>{if(e.target.value==='__new'){const c=prompt('New category name:');if(c){const o=document.createElement('option');o.textContent=c;o.value=c;e.target.insertBefore(o,e.target.lastElementChild);e.target.value=c;}else e.target.value=categories().filter(x=>x!=='All')[0]||'General';}});
-document.getElementById('addBtn').onclick=()=>openModal();document.getElementById('cancel').onclick=()=>document.getElementById('modal').classList.remove('show');document.getElementById('search').oninput=renderGrid;
-document.getElementById('save').onclick=()=>{const name=document.getElementById('name').value.trim(),message=document.getElementById('message').value.trim(),category=document.getElementById('category').value;if(!name||!message){alert('Please enter a template name and message.');return}if(editingId){const t=templates.find(x=>x.id==editingId);Object.assign(t,{name,message,category});}else templates.push({id:Date.now(),name,message,category});saveAll();document.getElementById('modal').classList.remove('show');render();toast('Template saved permanently on this device.');};
-window.editTemplate=id=>openModal(templates.find(t=>t.id==id));
-window.copyTemplate=id=>{const t=templates.find(x=>x.id==id);navigator.clipboard.writeText(t.message).then(()=>toast('Template copied!'));};
-function toast(s){const e=document.getElementById('toast');e.textContent=s;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1800)}
-document.getElementById('exportBtn').onclick=()=>{const blob=new Blob([JSON.stringify(templates,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='getwell-reply-hub-templates.json';a.click();URL.revokeObjectURL(a.href);};
-render();
-</script></body></html>
+function renderGrid(){const list=filtered();document.getElementById('grid').innerHTML=list.length?list.map(t=>`<article class="card template-card"><span class="tag">${esc(t.category)}</span><h3>${esc(t.name)}</h3><div class="preview">${esc(t.message)}</div><div class="cardfoot"><span class="small">Permanent template</span><div class="card-actions"><button class="secondary" onclick="editTemplate(${JSON.stringify(t.id)})">Edit</button><button class="primary" onclick="copyTemplate(${JSON.stringify(t.id)})">📋 Copy</button></div></div></article>`).join(''):'<div class="empty">No templates found.</div>';}
+
+function openModal(id=null){
+  editingId=id;
+  const t=id?templates.find(x=>String(x.id)===String(id)):null;
+  document.getElementById('modalTitle').textContent=t?'Edit Template':'Add Template';
+  document.getElementById('name').value=t?.name||'';
+  document.getElementById('message').value=t?.message||'';
+  populateCategorySelect(t?.category||categoriesStore[0]||'General Enquiries');
+  showModal('templateModal');
+}
+function populateCategorySelect(selected){
+  const select=document.getElementById('category');
+  select.innerHTML=categoriesStore.map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join('')+'<option value="__new">+ New Category</option>';
+  if(selected&&categoriesStore.includes(selected)) select.value=selected;else if(categoriesStore.length) select.value=categoriesStore[0];
+}
+function createCategoryPrompt(returnToTemplate=false){
+  const raw=prompt('New category name:');
+  const name=String(raw||'').trim();
+  if(!name) return null;
+  if(categoriesStore.some(c=>c.toLowerCase()===name.toLowerCase())){alert('That category already exists.');return null;}
+  categoriesStore.push(name);saveAll();render();toast('Category added.');
+  if(returnToTemplate){populateCategorySelect(name);document.getElementById('category').value=name;}
+  return name;
+}
+document.getElementById('category').addEventListener('change',e=>{if(e.target.value==='__new'){const old=editingId?templates.find(t=>String(t.id)===String(editingId))?.category:categoriesStore[0];const created=createCategoryPrompt(true);if(!created){populateCategorySelect(old);document.getElementById('category').value=old||categoriesStore[0]||'';}}});
+document.getElementById('addBtn').onclick=()=>openModal();
+document.getElementById('save').onclick=()=>{
+  const name=document.getElementById('name').value.trim(),message=document.getElementById('message').value.trim(),category=document.getElementById('category').value;
+  if(!name||!message){alert('Please enter a template name and message.');return;}
+  if(!category||category==='__new'){alert('Please choose a category.');return;}
+  if(editingId){const t=templates.find(x=>String(x.id)===String(editingId));if(!t){alert('Template could not be found.');return;}Object.assign(t,{name,message,category});}
+  else templates.push({id:uid(),name,message,category});
+  if(!categoriesStore.includes(category)) categoriesStore.push(category);
+  saveAll();hideModal('templateModal');render();toast('Template saved permanently on this device.');
+};
+window.editTemplate=id=>openModal(id);
+window.copyTemplate=id=>{const t=templates.find(x=>String(x.id)===String(id));if(!t)return;navigator.clipboard?.writeText(t.message).then(()=>toast('Template copied!')).catch(()=>fallbackCopy(t.message));};
+function fallbackCopy(text){const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();toast('Template copied!');}
+
+document.getElementById('manageCategoriesBtn').onclick=()=>{renderCategoryManager();showModal('categoryModal');};
+document.getElementById('addCategoryBtn').onclick=()=>{createCategoryPrompt(false);renderCategoryManager();};
+function renderCategoryManager(){
+  const el=document.getElementById('categoryList');
+  el.innerHTML=categoriesStore.length?categoriesStore.map(c=>{const count=templates.filter(t=>t.category===c).length;return `<div class="category-row"><div><div class="category-name">${esc(c)}</div><div class="category-meta">${count} template${count===1?'':'s'}</div></div><div class="row-actions"><button class="secondary" onclick="renameCategory(${JSON.stringify(c)})">Rename</button><button class="danger-btn" onclick="requestDeleteCategory(${JSON.stringify(c)})">Delete</button></div></div>`;}).join(''):'<div class="empty">No categories yet.</div>';
+}
+window.renameCategory=oldName=>{
+  const raw=prompt('Rename category:',oldName);if(raw===null)return;const newName=String(raw).trim();
+  if(!newName||newName===oldName)return;
+  if(categoriesStore.some(c=>c!==oldName&&c.toLowerCase()===newName.toLowerCase())){alert('That category already exists.');return;}
+  templates.forEach(t=>{if(t.category===oldName)t.category=newName;});
+  categoriesStore=categoriesStore.map(c=>c===oldName?newName:c);
+  if(activeCat===oldName)activeCat=newName;
+  saveAll();render();renderCategoryManager();toast(`Renamed to ${newName}. Existing templates were kept.`);
+};
+window.requestDeleteCategory=category=>{
+  const count=templates.filter(t=>t.category===category).length;
+  const destinations=categoriesStore.filter(c=>c!==category);
+  pendingDeleteCategory=category;
+  pendingDeleteMode=count?'move':'empty';
+  document.getElementById('confirmTitle').textContent='Delete Category';
+  const copy=document.getElementById('confirmCopy');const box=document.getElementById('moveBox');const select=document.getElementById('moveCategory');
+  if(count&&destinations.length){
+    copy.innerHTML=`<strong>${esc(category)}</strong> contains <strong>${count}</strong> template${count===1?'':'s'}. These templates will not be deleted.<br><br>Choose another category to move them to before deleting <strong>${esc(category)}</strong>.`;
+    select.innerHTML=destinations.map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join('');box.hidden=false;
+    document.getElementById('confirmAction').textContent='Move Templates & Delete';
+  } else if(count&&!destinations.length){
+    copy.innerHTML=`<strong>${esc(category)}</strong> contains <strong>${count}</strong> template${count===1?'':'s'} and there are no other categories available.<br><br><strong>Nothing will be deleted silently.</strong> If you continue, the category and all ${count} templates in it will be permanently deleted. This cannot be undone.`;
+    box.hidden=true;document.getElementById('confirmAction').textContent='Delete Category & Templates';
+  } else {
+    copy.innerHTML=`<strong>${esc(category)}</strong> contains no templates.<br><br>You can safely delete this empty category.`;box.hidden=true;document.getElementById('confirmAction').textContent='Delete Category';
+  }
+  showModal('confirmModal');
+};
+document.getElementById('confirmAction').onclick=()=>{
+  if(!pendingDeleteCategory)return;
+  const cat=pendingDeleteCategory;const count=templates.filter(t=>t.category===cat).length;const destinations=categoriesStore.filter(c=>c!==cat);
+  if(count&&destinations.length){const dest=document.getElementById('moveCategory').value;if(!dest){alert('Please choose a destination category.');return;}templates.forEach(t=>{if(t.category===cat)t.category=dest;});}
+  else if(count&&!destinations.length){if(!confirm(`This will permanently delete ${count} template${count===1?'':'s'}. Continue?`))return;templates=templates.filter(t=>t.category!==cat);}
+  categoriesStore=categoriesStore.filter(c=>c!==cat);if(activeCat===cat)activeCat='All';saveAll();hideModal('confirmModal');render();renderCategoryManager();toast('Category deleted safely.');pendingDeleteCategory=null;pendingDeleteMode=null;
+};
+
+function showModal(id){document.getElementById(id).classList.add('show');}
+function hideModal(id){document.getElementById(id).classList.remove('show');}
+document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>hideModal(b.dataset.close)));
+document.querySelectorAll('.modal-backdrop').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)hideModal(m.id);}));
+
+document.getElementById('search').oninput=renderGrid;
+document.getElementById('exportBtn').onclick=()=>{const blob=new Blob([JSON.stringify({app:'Getwell Patient Care Hub',version:1,exportedAt:new Date().toISOString(),templates,categories:categoriesStore},null,2)],{type:'application/json'});const a=document.createElement('a');const url=URL.createObjectURL(blob);a.href=url;a.download='getwell-patient-care-hub-templates.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),0);};
+
+function applyTheme(theme){const t=theme==='dark'?'dark':'light';document.documentElement.dataset.theme=t;localStorage.setItem(THEME_KEY,t);document.getElementById('themeLabel').textContent=t==='dark'?'Light Mode':'Dark Mode';document.getElementById('themeIcon').textContent=t==='dark'?'☀':'☾';}
+function initTheme(){let t=localStorage.getItem(THEME_KEY);if(t!=='dark'&&t!=='light')t='light';applyTheme(t);}
+document.getElementById('themeToggle').onclick=()=>applyTheme(document.documentElement.dataset.theme==='dark'?'light':'dark');
+const sidebar=document.getElementById('sidebar'),overlay=document.getElementById('overlay');
+document.getElementById('menuBtn').onclick=()=>{sidebar.classList.add('open');overlay.classList.add('show');};overlay.onclick=()=>{sidebar.classList.remove('open');overlay.classList.remove('show');};
+
+// Compatibility migration: old template storage remains the source of truth; categories are derived from it.
+templates=readTemplates();categoriesStore=deriveCategories();
+if(!categoriesStore.length)categoriesStore=['General Enquiries'];
+initTheme();render();
+</script>
+</body>
+</html>
